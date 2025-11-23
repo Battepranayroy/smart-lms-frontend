@@ -1,17 +1,17 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiSlice = createApi({
-  reducerPath: 'api',
+  reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${baseUrl}/api`,
+    baseUrl: process.env.REACT_APP_API_URL + "/api",
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token || localStorage.getItem('token');
-      if (token) headers.set('authorization', `Bearer ${token}`);
+      const token = getState().auth.token;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
       return headers;
     },
   }),
-  tagTypes: ['Courses', 'Course', 'Categories', 'Reviews'],
+  tagTypes: ["Courses", "Categories", "CourseDetails"],
   endpoints: () => ({}),
 });
