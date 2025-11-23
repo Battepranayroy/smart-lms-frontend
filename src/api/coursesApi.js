@@ -22,6 +22,20 @@ export const coursesApi = apiSlice.injectEndpoints({
       query: (category) => `/courses?category=${category}`,
       providesTags: ["Courses"],
     }),
+    enrollCourse: builder.mutation({
+      query: (courseId) => ({
+        url: `/courses/${courseId}/enroll`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Courses", "CourseDetails"],
+    }),
+    createCourse: builder.mutation({
+      query: (formData) => ({
+        url: "/courses",
+        method: "POST",
+        body: formData,
+      }),
+    }),
 
   }),
 });
@@ -31,4 +45,6 @@ export const {
   useGetCategoriesQuery,
   useGetCourseByIdQuery,
   useGetCoursesByCategoryQuery,
+  useEnrollCourseMutation,
+  useCreateCourseMutation,
 } = coursesApi;

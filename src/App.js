@@ -8,6 +8,14 @@ import CourseDetail from './pages/CourseDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import CategoryPage from './pages/CategoryPage';
+import ProtectedRoute from "./components/ProtectedRoute";
+import MyLearning from "./pages/MyLearning";
+import Profile from "./pages/Profile";
+import InstructorDashboard from "./pages/instructor/InstructorDashboard";
+import CreateCourse from './pages/instructor/CreateCourse';
+import MyCourses from './pages/instructor/MyCourses';
+import AdminDashboard from "./pages/AdminDashboard";
+import InstructorLayout from "./layouts/InstructorLayout";
 
 export default function App(){
 
@@ -22,6 +30,21 @@ export default function App(){
           <Route path="/categories/:category" element={<CategoryPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route element={<ProtectedRoute />}>
+              <Route path="/my-learning" element={<MyLearning />} />
+              <Route path="/profile" element={<Profile />} />
+          </Route>
+          
+          <Route element={<ProtectedRoute roles={['admin']}/>}>
+            <Route path="/admin" element={<AdminDashboard />} />
+          </Route>
+          <Route element={<ProtectedRoute roles={['instructor']}/>}>
+            <Route element={<InstructorLayout />}>
+              <Route path="/instructor/dashboard" element={<InstructorDashboard />} />
+              <Route path="/instructor/courses" element={<MyCourses />} />
+              <Route path="/instructor/create-course" element={<CreateCourse />} />
+            </Route>
+          </Route>
 
       </Routes>
     
