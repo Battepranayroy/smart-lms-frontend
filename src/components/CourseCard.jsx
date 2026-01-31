@@ -2,27 +2,54 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function CourseCard({ course }) {
+  if (!course) return null;
+
   return (
-    <div className="border rounded-lg p-4 shadow hover:shadow-lg transition">
-      <img
-        src={course.thumbnail || "https://via.placeholder.com/300"}
-        alt={course.title}
-        className="rounded mb-3"
-      />
+    <Link
+      to={`/courses/${course._id}`}
+      className="block"
+    >
+      <div className="bg-white rounded-xl shadow hover:shadow-lg transition w-72 overflow-hidden cursor-pointer">
 
-      <h2 className="text-xl font-semibold">{course.title}</h2>
-      <p className="text-gray-600">{course.category}</p>
+        <div className="relative h-40">
+          <img
+            src={course.thumbnail || "/course-image.jpeg"}
+            alt={course.title || "Course"}
+            className="w-full h-full object-cover blur-[1px]"
+          />
 
-      <p className="mt-2 font-bold text-indigo-600">
-        ₹ {course.price}
-      </p>
+          <span className="absolute top-3 right-3 bg-indigo-600 text-white text-xs px-3 py-1 rounded-full">
+            {course.category}
+          </span>
+        </div>
 
-      <Link
-        to={`/courses/${course._id}`}
-        className="block mt-3 bg-indigo-600 text-white text-center py-2 rounded"
-      >
-        View Details
-      </Link>
-    </div>
+        <div className="p-4 flex flex-col gap-2">
+          <h3 className="font-semibold text-lg line-clamp-2">
+            {course.title}
+          </h3>
+
+          <p className="text-sm text-gray-600 line-clamp-2">
+            {course.description}
+          </p>
+
+          <div className="flex items-center gap-1 text-yellow-400 text-sm">
+            ⭐⭐⭐⭐⭐
+            <span className="text-gray-500 text-xs">
+              ({course.totalReviews || 0})
+            </span>
+          </div>
+
+          <div className="flex justify-between items-center mt-2">
+            <span className="font-bold text-indigo-600">
+              ${course.price}
+            </span>
+            <span className="text-sm text-gray-500">
+              {course.instructor?.name}
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </Link>
   );
 }

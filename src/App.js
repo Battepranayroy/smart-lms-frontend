@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import Courses from './pages/Courses';
@@ -15,6 +16,7 @@ import InstructorDashboard from "./pages/instructor/InstructorDashboard";
 import CreateCourse from './pages/instructor/CreateCourse';
 import MyCourses from './pages/instructor/MyCourses';
 import AdminDashboard from "./pages/AdminDashboard";
+import CoursePlayer from './pages/CoursePlayer';
 import InstructorLayout from "./layouts/InstructorLayout";
 
 export default function App(){
@@ -27,6 +29,7 @@ export default function App(){
           <Route path="/" element={<Home/>} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/courses/:id" element={<CourseDetail />} />
+          <Route path="/courses/:courseId/learn/:lessonId" element={<CoursePlayer />} />
           <Route path="/categories/:category" element={<CategoryPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -47,6 +50,7 @@ export default function App(){
           </Route>
 
       </Routes>
+      <Footer />
     
     </BrowserRouter>
   );

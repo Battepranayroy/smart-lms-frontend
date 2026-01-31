@@ -12,6 +12,7 @@ export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
 
   const handleSubmit = (e) => {
+    console.log("API URL:", process.env.REACT_APP_API_URL);
     e.preventDefault();
     dispatch(loginUser(form));
   };

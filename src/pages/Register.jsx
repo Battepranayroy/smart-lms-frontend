@@ -12,8 +12,7 @@ export default function Register() {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    password: "",
-    role: "user",
+    password: ""
   });
 
   const handleSubmit = (e) => {
